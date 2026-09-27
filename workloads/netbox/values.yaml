@@ -31,6 +31,7 @@ redis:
 persistence:
   enabled: true
   storageClass: longhorn
+  accessMode: ReadWriteMany
 
 resources:
   requests:

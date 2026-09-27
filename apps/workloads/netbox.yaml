@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   sources:
-    - repoURL: https://charts.boo.tc
+    - repoURL: https://netbox-community.github.io/netbox-chart/
       chart: netbox
-      targetRevision: 5.*
+      targetRevision: 8.*
       helm:
         valueFiles:
           - $values/workloads/netbox/values.yaml

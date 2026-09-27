@@ -1,6 +1,13 @@
+superuser:
+  name: admin
+  email: admin@home.lab
+  password: 1q2w3e4r
+
 ingress:
   enabled: true
   className: traefik
+  annotations:
+    cert-manager.io/cluster-issuer: homelab-ca-issuer
   hosts:
     - host: netbox.home.lab
       paths:
@@ -10,37 +17,20 @@ ingress:
     - secretName: netbox-tls
       hosts:
         - netbox.home.lab
-  annotations:
-    cert-manager.io/cluster-issuer: homelab-ca-issuer
-
-superuser:
-  name: admin
-  email: admin@home.lab
-  password: 1q2w3e4r
 
 postgresql:
   enabled: true
   auth:
-    password: netbox-pg-pass
-  primary:
-    persistence:
-      storageClass: longhorn
-      size: 5Gi
+    username: netbox
+    database: netbox
 
 redis:
   enabled: true
   architecture: standalone
-  auth:
-    enabled: false
-  master:
-    persistence:
-      storageClass: longhorn
-      size: 2Gi
 
 persistence:
   enabled: true
   storageClass: longhorn
-  size: 5Gi
 
 resources:
   requests:

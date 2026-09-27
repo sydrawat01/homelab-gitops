@@ -44,8 +44,10 @@ startupProbe:
 readinessProbe:
   timeoutSeconds: 5
 
+workers: 2
+
 resources:
   requests:
     memory: 512Mi
   limits:
-    memory: 1Gi
+    memory: 1536Mi

@@ -34,6 +34,16 @@ persistence:
   storageClass: longhorn
   accessMode: ReadWriteMany
 
+startupProbe:
+  enabled: true
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 30
+
+readinessProbe:
+  timeoutSeconds: 5
+
 resources:
   requests:
     memory: 512Mi

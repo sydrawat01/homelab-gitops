@@ -1,0 +1,2 @@
+# Helm values for this component.
+# Move values here when migrating from manual helm installs to ArgoCD-managed.

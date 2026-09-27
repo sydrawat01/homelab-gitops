@@ -13,7 +13,7 @@ spec:
         valueFiles:
           - $values/workloads/netbox/values.yaml
     - repoURL: https://github.com/sydrawat01/homelab-gitops.git
-      targetRevision: main
+      targetRevision: master
       ref: values
   destination:
     server: https://kubernetes.default.svc

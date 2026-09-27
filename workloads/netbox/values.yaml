@@ -6,13 +6,13 @@ superuser:
 ingress:
   enabled: true
   className: traefik
+  pathType: Prefix
   annotations:
     cert-manager.io/cluster-issuer: homelab-ca-issuer
   hosts:
     - host: netbox.home.lab
       paths:
-        - path: /
-          pathType: Prefix
+        - /
   tls:
     - secretName: netbox-tls
       hosts:
@@ -23,6 +23,7 @@ postgresql:
   auth:
     username: netbox
     database: netbox
+    password: 1q2w3e4r
 
 redis:
   enabled: true

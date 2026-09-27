@@ -1,0 +1,147 @@
+enableRbac: true
+
+serviceAccount:
+  name: homepage
+  create: true
+
+ingress:
+  main:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      cert-manager.io/cluster-issuer: homelab-ca-issuer
+    hosts:
+      - host: home.home.lab
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: homepage-tls
+        hosts:
+          - home.home.lab
+
+env:
+  - name: HOMEPAGE_ALLOWED_HOSTS
+    value: home.home.lab
+
+config:
+  settings:
+    title: Homelab
+    favicon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/kubernetes.png
+    theme: dark
+    color: slate
+    headerStyle: clean
+    layout:
+      Infrastructure:
+        style: row
+        columns: 4
+      Observability:
+        style: row
+        columns: 4
+      Applications:
+        style: row
+        columns: 2
+
+  bookmarks:
+    - Documentation:
+        - Kubernetes Docs:
+            - abbr: K8s
+              href: https://kubernetes.io/docs/
+        - ArgoCD Docs:
+            - abbr: Argo
+              href: https://argo-cd.readthedocs.io/
+        - Traefik Docs:
+            - abbr: TF
+              href: https://doc.traefik.io/traefik/
+        - Longhorn Docs:
+            - abbr: LH
+              href: https://longhorn.io/docs/
+
+  services:
+    - Infrastructure:
+        - Traefik:
+            icon: traefik.png
+            href: https://traefik.home.lab
+            description: Ingress Controller & Reverse Proxy
+            widget:
+              type: traefik
+              url: http://traefik.traefik.svc:9000
+        - Longhorn:
+            icon: longhorn.png
+            href: https://longhorn.home.lab
+            description: Distributed Block Storage
+            widget:
+              type: longhorn
+              url: http://longhorn-frontend.longhorn-system.svc
+        - ArgoCD:
+            icon: argocd.png
+            href: https://argocd.home.lab
+            description: GitOps Continuous Delivery
+        - Cert Manager:
+            icon: cert-manager.png
+            description: TLS Certificate Management
+
+    - Observability:
+        - Grafana:
+            icon: grafana.png
+            href: https://grafana.home.lab
+            description: Dashboards & Visualization
+            widget:
+              type: grafana
+              url: http://kube-prometheus-stack-grafana.monitoring.svc
+              username: admin
+              password: 1q2w3e4r
+        - Prometheus:
+            icon: prometheus.png
+            description: Metrics Collection & Alerting
+            widget:
+              type: prometheus
+              url: http://kube-prometheus-stack-prometheus.monitoring.svc:9090
+        - Alertmanager:
+            icon: alertmanager.png
+            href: https://alertmanager.home.lab
+            description: Alert Routing & Notifications
+        - Hubble:
+            icon: cilium.png
+            href: https://hubble.home.lab
+            description: Network Flow Observability
+
+    - Applications:
+        - NetBox:
+            icon: netbox.png
+            href: https://netbox.home.lab
+            description: DCIM & IPAM
+        - Homepage:
+            icon: homepage.png
+            href: https://home.home.lab
+            description: This Dashboard
+
+  widgets:
+    - kubernetes:
+        cluster:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
+          label: homelab
+    - search:
+        provider: google
+        target: _blank
+    - datetime:
+        text_size: xl
+        format:
+          dateStyle: long
+          timeStyle: short
+          hour12: true
+
+  kubernetes:
+    mode: cluster
+
+  docker: {}
+
+resources:
+  requests:
+    memory: 64Mi
+    cpu: 25m
+  limits:
+    memory: 256Mi

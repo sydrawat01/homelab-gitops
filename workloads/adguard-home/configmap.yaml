@@ -9,7 +9,7 @@ data:
     bind_port: 3000
     users:
       - name: admin
-        password: $2a$10$WzFYYN1EBJlCbCqQMJhZkuCWEAR3SPKjHMhqbD4DChx08sMAiPDvy
+        password: $2y$10$lam.5W2ZvONVzt/033VtI.7V2VQpZ2w.71PQbLzomLSgqoylr8T5q
     auth_attempts: 5
     block_auth_min: 15
     http_proxy: ""

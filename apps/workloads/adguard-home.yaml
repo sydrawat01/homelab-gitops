@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: adguard-home
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/sydrawat01/homelab-gitops.git
+    targetRevision: master
+    path: workloads/adguard-home
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: adguard
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

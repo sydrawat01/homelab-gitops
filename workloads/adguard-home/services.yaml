@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: adguard-home-web
+  namespace: adguard
+spec:
+  selector:
+    app: adguard-home
+  ports:
+    - name: http
+      port: 3000
+      targetPort: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: adguard-home-dns
+  namespace: adguard
+  annotations:
+    metallb.universe.tf/loadBalancerIPs: "192.168.0.201"
+    metallb.universe.tf/allow-shared-ip: adguard-dns
+spec:
+  type: LoadBalancer
+  selector:
+    app: adguard-home
+  ports:
+    - name: dns-tcp
+      port: 53
+      targetPort: dns-tcp
+      protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: adguard-home-dns-udp
+  namespace: adguard
+  annotations:
+    metallb.universe.tf/loadBalancerIPs: "192.168.0.201"
+    metallb.universe.tf/allow-shared-ip: adguard-dns
+spec:
+  type: LoadBalancer
+  selector:
+    app: adguard-home
+  ports:
+    - name: dns-udp
+      port: 53
+      targetPort: dns-udp
+      protocol: UDP

@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: adguard-home-config
+  namespace: adguard
+data:
+  AdGuardHome.yaml: |
+    bind_host: 0.0.0.0
+    bind_port: 3000
+    users:
+      - name: admin
+        password: $2a$10$WzFYYN1EBJlCbCqQMJhZkuCWEAR3SPKjHMhqbD4DChx08sMAiPDvy
+    auth_attempts: 5
+    block_auth_min: 15
+    http_proxy: ""
+    language: en
+    theme: auto
+    dns:
+      bind_hosts:
+        - 0.0.0.0
+      port: 53
+      querylog_enabled: true
+      querylog_file_enabled: true
+      querylog_interval: 720h
+      querylog_size_memory: 1000
+      protection_enabled: true
+      blocking_mode: default
+      ratelimit: 0
+      refuse_any: true
+      upstream_dns:
+        - https://dns10.quad9.net/dns-query
+        - https://dns.cloudflare.com/dns-query
+      bootstrap_dns:
+        - 9.9.9.10
+        - 1.1.1.1
+      all_servers: false
+      fastest_addr: true
+      cache_size: 4194304
+      cache_ttl_min: 0
+      cache_ttl_max: 0
+      enable_dnssec: true
+      filtering_enabled: true
+      filters_update_interval: 24
+      parental_enabled: false
+      safesearch_enabled: false
+      safebrowsing_enabled: false
+      rewrites:
+        - domain: '*.home.lab'
+          answer: 192.168.0.200
+    tls:
+      enabled: false
+    filters:
+      - enabled: true
+        url: https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt
+        name: AdGuard DNS filter
+        id: 1
+      - enabled: true
+        url: https://adaway.org/hosts.txt
+        name: AdAway Default Blocklist
+        id: 2
+    dhcp:
+      enabled: false
+    schema_version: 28
